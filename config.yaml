@@ -1,0 +1,60 @@
+### Hyper parameters
+
+  ## Data manipulation
+
+training_size: 10000
+test_size: 1000
+batch_size: 200
+
+training_epochs: 3
+
+  ## Layers of the NN
+
+L: 5 
+layer_dimensions: [500, 500, 500, 500, 500] # be careful to have L elements in the list
+
+# You have the choice between :
+# "softplus"
+#  "silu"
+
+activation_function: "silu"
+
+  ## Initial_distribution of the weights
+
+# You have the choice between :
+# "He-normal"
+# "He-uniform"
+# "LeCun-normal"
+# "LeCun-uniform"
+# "Glorot-normal"
+# "Glorot-uniform "
+
+initialisation_distribution: "He-normal"
+
+  ## Parameters for the computation
+
+K: 200
+
+tau_range: [0, 3]         # 0 <= tau <= 3
+sigma_range: [0.01, 0.50]      # percentage and 1 <= sigma <= 50
+nu_range: [0.1, 0.6]        # 0.1 <= nu <= 0.6
+theta_range: [-0.5, -0.1]    # -0.5 <= theta <= -0.1
+r_range: [0, 0.1]       # 0 <= r <= 0.1
+q_range: [0, 0.1]        # 0 <= q <= 0.1
+
+x_min: 0
+x_max: 9.210340371976184
+
+epsilon: 0.01
+
+optimizer:
+  name: "Adam"
+  params:
+    lr: 0.001
+    weight_decay: 0.0
+
+scheduler:
+  name: "CosineAnnealingLR"
+  params:
+    T_max: "$(nb_cycles * nb_epochs_self_supervised_by_cycle)"
+    eta_min: 0

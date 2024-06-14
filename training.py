@@ -92,7 +92,7 @@ def forward_pass(model, optimizer, mini_batch, batch_size, x_max, x_min, strike_
         loss = compute_loss(entry, x_min, strike_K, w, dw_dtau, dw_dx, w_x_zero, w_xmin, w_xmax, integral_term_for_mini_batch)
 
     loss_epoch += loss
-    print(loss)
+    print("loss value :", loss)
 
     # if last_eval, we compute the RMSE and the MAE
     if last_eval:

@@ -1,8 +1,6 @@
 import tensorflow as tf
 
 def compute_loss(entry, x_min, K, w, dw_dtau, dw_dx, w_x_zero, w_xmin, w_xmax, integral_term_for_mini_batch):
-    print(entry)
-
     x = entry[:, 0]
     tau = entry[:, 1]
     r = entry[:, 5]
@@ -15,9 +13,9 @@ def compute_loss(entry, x_min, K, w, dw_dtau, dw_dx, w_x_zero, w_xmin, w_xmax, i
 
     loss = term_1 + term_2 + term_3 + term_4
 
-    print("t1 :", tf.reduce_mean(term_1))
-    print("t2 :", tf.reduce_mean(term_2))
-    print("t3 :", tf.reduce_mean(term_3))
-    print("t4 :", tf.reduce_mean(term_4))
+    print("t1 loss:", tf.reduce_mean(term_1))
+    print("t2 loss:", tf.reduce_mean(term_2))
+    print("t3 loss:", tf.reduce_mean(term_3))
+    print("t4 loss:", tf.reduce_mean(term_4))
 
     return tf.reduce_mean(loss)

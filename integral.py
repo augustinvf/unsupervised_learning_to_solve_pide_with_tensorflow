@@ -81,25 +81,8 @@ def compute_integral_with_rectangles(w, w_y_plus_j, w_y_minus_j, y_plus_j, y_min
         term5 = tf.reduce_sum((1/2) * (w_y_minus_j[i, 1:73] - w[i]) * k(y_minus_j[1:73], lambda_n[i], lambda_p[i], nu[i]) * (y_minus_j[:72] - y_minus_j[2:]))
         term6 = (1/2) * (w_y_minus_j[i, 73] - w[i]) * k(y_minus_j[73], lambda_n[i], lambda_p[i], nu[i]) * (y_minus_j[72] - y_minus_j[73])
 
-        # print(tf.shape(term1))
-        # print(tf.shape(term2))
-        # print(tf.shape(term3))
-        # print(tf.shape(term4))
-        # print(tf.shape(term5))
-        # print(tf.shape(term6))
-
-        # print(term1)
-        # print(term2)
-        # print(term3)
-        # print(term4)
-        # print(term5)
-        # print(term6)
-
-        # print(tf.tensor_scatter_nd_add(integral, [[i, 0]], term1 + term2 + term3 + term4 + term5 + term6))
-
         integral = tf.tensor_scatter_nd_add(integral, [[i, 0]], term1 + term2 + term3 + term4 + term5 + term6)
 
-    print(tf.reduce_mean(integral))
     return integral
 
 def compute_inner_part(nu, epsilon, lambda_n, lambda_p, ddw_dx_dx, dw_dx):
@@ -115,8 +98,6 @@ def compute_outer_part(w, w_y_plus_j, w_y_minus_j, y_plus_j, y_minus_j, nu, dw_d
     condition_not_gt_100 = tf.math.logical_and(tf.math.greater(omega_, LEFT_BORN), tf.math.less_equal(omega_, RIGHT_BORN))
     appropriate_values = tf.math.logical_and(condition_nan, condition_not_gt_100)
     appropriate_index = tf.where(appropriate_values)[:, 0]
-
-    print(tf.shape(appropriate_index))
 
     integral = tf.gather(integral, appropriate_index)
     omega_ = tf.reshape(tf.gather(omega_, appropriate_index), [tf.shape(integral)[0], 1])

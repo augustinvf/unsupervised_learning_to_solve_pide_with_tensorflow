@@ -77,7 +77,7 @@ class EntryInitializer:
         return tf.stack([self.initialize_one_entry_for_test() for _ in range(n)])
 
     def generate_training_dataset(self, data, batch_size):
-        return tf.data.Dataset.from_tensor_slices(data).shuffle(buffer_size=self.training_size).batch(batch_size)
+        return tf.data.Dataset.from_tensor_slices(data).batch(batch_size)
 
     def generate_test_dataset(data, batch_size):
         return tf.data.Dataset.from_tensor_slices(data).batch(batch_size)

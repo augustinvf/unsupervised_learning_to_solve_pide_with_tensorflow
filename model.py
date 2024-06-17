@@ -10,19 +10,18 @@ class MLP(tf.keras.Model):
         self.L = L
         self.initialisation_distribution = initialisation_distribution
 
-        initializer = self.compute_initializer()
-
         self.model = tf.keras.Sequential()
 
         # Add input layer
-        self.model.add(tf.keras.layers.Dense(layer_dimensions[0], input_dim=x_dimension, activation=activation_function))
+        self.model.add(tf.keras.layers.Dense(layer_dimensions[0], input_dim=x_dimension, kernel_initializer=self.compute_initializer(), activation=activation_function))
 
         # Add hidden layers
         for i in range(1, L):
-           self.model.add(tf.keras.layers.Dense(layer_dimensions[i], kernel_initializer=initializer, activation = activation_function))
+           # be careful, each layer need a new instance as initializer to change the seed !
+           self.model.add(tf.keras.layers.Dense(layer_dimensions[i], kernel_initializer=self.compute_initializer(), activation = activation_function))
 
         # Add output layer
-        self.model.add(tf.keras.layers.Dense(1, kernel_initializer=initializer))
+        self.model.add(tf.keras.layers.Dense(1, kernel_initializer=self.compute_initializer()))
 
     def call(self, inputs):
         return self.model(inputs)

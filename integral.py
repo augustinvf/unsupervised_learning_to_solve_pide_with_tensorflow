@@ -39,7 +39,7 @@ def g_1(x, alpha):
         return iupper_gamma(x, 1 - alpha)
 
 def g_2(x, alpha):
-    return 0
+    #return 0
     if alpha == 0 :
         return tf.math.special.expint(x)
     elif 0 < alpha < 1 :
@@ -93,8 +93,8 @@ def compute_outer_part(w, w_y_plus_j, w_y_minus_j, y_plus_j, y_minus_j, nu, dw_d
     # numerical explosion of omega
     omega_ = omega(epsilon, nu, lambda_n, lambda_p, 0)
     condition_nan = tf.math.logical_not(tf.math.is_nan(omega_))
-    LEFT_BORN = -1000
-    RIGHT_BORN = 1000
+    LEFT_BORN = -10000
+    RIGHT_BORN = 10000
     condition_not_gt_100 = tf.math.logical_and(tf.math.greater(omega_, LEFT_BORN), tf.math.less_equal(omega_, RIGHT_BORN))
     appropriate_values = tf.math.logical_and(condition_nan, condition_not_gt_100)
     appropriate_index = tf.where(appropriate_values)[:, 0]

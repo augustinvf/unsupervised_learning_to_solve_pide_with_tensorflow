@@ -4,7 +4,7 @@ import tensorflow as tf
 from math import log, sqrt
 from omegaconf import OmegaConf
 from model import MLP
-from data import EntryInitializer, generate_training_dataset, generate_test_dataset
+from data import EntryInitializer
 from training import forward_pass
 from integral import y_j
 
@@ -35,12 +35,12 @@ theta_range = config.theta_range
 r_range = config.r_range
 q_range = config.q_range
 
-data_initializer = EntryInitializer(x_train_range, x_test_range, tau_range, sigma_range, nu_range, theta_range, r_range, q_range)
-data_training = data_initializer.initialize_n_entries_for_training(training_size)
-training_dataset = generate_training_dataset(data_training, batch_size)
+data_initializer = EntryInitializer(x_train_range, x_test_range, tau_range, sigma_range, nu_range, theta_range, r_range, q_range, training_size)
+data_training = data_initializer.initialize_entries_for_training()
+training_dataset = data_initializer.generate_training_dataset(data_training, batch_size)
 
-data_test = data_initializer.initialize_n_entries_for_training(test_size)
-test_dataset = generate_test_dataset(data_test, batch_size)
+# data_test = data_initializer.initialize_n_entries_for_training(test_size)
+# test_dataset = data_initializer.generate_test_dataset(data_test, batch_size)
 
 x_dimension = 7
 
@@ -63,6 +63,9 @@ training_epochs = config.training_epochs
 
 y_plus_j = tf.TensorArray(tf.float32, size=74)
 y_minus_j = tf.TensorArray(tf.float32, size=74)
+
+# y_plus_j : [y_1, ..., y_74]
+# y_minus_j : [y_(-1), ..., y_(-74)]
 
 for j in range(1, 75):
     y_plus_j = y_plus_j.write(j-1, y_j(j))

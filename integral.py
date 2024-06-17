@@ -39,7 +39,7 @@ def g_1(x, alpha):
         return iupper_gamma(x, 1 - alpha)
 
 def g_2(x, alpha):
-    #return 0
+    return 0
     if alpha == 0 :
         return tf.math.special.expint(x)
     elif 0 < alpha < 1 :

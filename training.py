@@ -15,6 +15,8 @@ def forward_pass(model, optimizer, mini_batch, batch_size, x_max, x_min, strike_
     else:
         model.trainable = False
 
+    # X = (x, tau, sigma, nu, theta, r, q)
+
     # X where tau = 0
     zeros_column = tf.zeros_like(mini_batch[:, 1])
     entry_x_zero_partial = tf.concat([mini_batch[:, 0:1], zeros_column[:, tf.newaxis]], axis=1)

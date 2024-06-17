@@ -19,4 +19,4 @@ def generate_entries_trapezoidal_rule(mini_batch, y_j):
     dimension_modifier = tf.constant([1, 1, 74], tf.int32)
     entry = tf.tile(entry, dimension_modifier)
     
-    return tf.add(entry, new_tensor)
+    return tf.transpose(tf.add(entry, new_tensor), perm = [0, 2, 1])

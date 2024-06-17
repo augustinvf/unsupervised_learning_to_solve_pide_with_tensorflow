@@ -11,7 +11,7 @@ def compute_loss(entry, x_min, K, w, dw_dtau, dw_dx, w_x_zero, w_xmin, w_xmax, i
     term_3 = tf.square(w_xmin - (K * tf.exp(-r * tau) - tf.exp(x_min - q * tau)))
     term_4 = tf.square(w_xmax)
 
-    loss = 0 + term_2 + term_3 + term_4
+    loss = term_1 + term_2 + term_3 + term_4
 
     print("t1 loss:", tf.reduce_mean(term_1))
     print("t2 loss:", tf.reduce_mean(term_2))

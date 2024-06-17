@@ -98,7 +98,6 @@ def compute_outer_part(w, w_y_plus_j, w_y_minus_j, y_plus_j, y_minus_j, nu, dw_d
     condition_not_gt_100 = tf.math.logical_and(tf.math.greater(omega_, LEFT_BORN), tf.math.less_equal(omega_, RIGHT_BORN))
     appropriate_values = tf.math.logical_and(condition_nan, condition_not_gt_100)
     appropriate_index = tf.where(appropriate_values)[:, 0]
-
     integral = tf.gather(integral, appropriate_index)
     omega_ = tf.reshape(tf.gather(omega_, appropriate_index), [tf.shape(integral)[0], 1])
 
